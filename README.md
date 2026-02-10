@@ -1,16 +1,86 @@
-# React + Vite
+# 🌍 PolluTech — Blockchain-Based Factory Emission Monitoring
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PolluTech** is a decentralized platform that records, verifies, and tracks factory emissions using blockchain technology. The system ensures **data integrity, transparency, and accountability**, preventing manipulation of pollution records while enabling real-time monitoring for regulators, industries, and the public.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Problem Statement
 
-## React Compiler
+Industrial emissions are often:
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Underreported  
+- Manipulated  
+- Poorly monitored  
+- Stored in centralized databases vulnerable to tampering  
 
-## Expanding the ESLint configuration
+This leads to regulatory loopholes, environmental harm, and lack of public trust.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+---
+
+## 💡 Solution Overview
+
+**PolluTech** solves this by:
+
+- Collecting real-time emissions data from factory sensors  
+- Storing records on a **tamper-proof blockchain ledger**  
+- Providing a transparent dashboard for:
+  - Government regulators  
+  - Environmental agencies  
+  - Factories  
+  - Public stakeholders  
+
+Once data is written to the blockchain, **it cannot be altered or deleted.**
+
+---
+
+## 🧱 Core Features
+
+### ✅ 1. Real-Time Data Collection  
+- IoT sensors measure pollutants such as:
+  - CO₂  
+  - SO₂  
+  - NOx  
+  - Particulate Matter (PM2.5/PM10)
+
+### ✅ 2. Blockchain Storage  
+- Each emission reading is stored as a transaction on-chain  
+- Creates an immutable audit trail  
+
+### ✅ 3. Factory Dashboard  
+Factories can:
+- View their emission history  
+- Track compliance  
+- Analyze trends  
+
+### ✅ 4. Regulator Dashboard  
+Authorities can:
+- Monitor multiple factories  
+- Detect violations  
+- Generate reports  
+
+### ✅ 5. Public Transparency  
+Citizens can:
+- View pollution levels  
+- Hold industries accountable  
+
+---
+
+## 🏗️ Tech Stack (Proposed)
+
+### Frontend  
+- React + Vite  
+- Tailwind CSS  
+- Chart.js / Recharts for visualization  
+
+### Backend  
+- Node.js + Express  
+
+### Blockchain  
+- Ethereum / Polygon  
+- Solidity Smart Contracts  
+
+### Database  
+- MongoDB (for off-chain metadata)  
+
+### Sensors  
+- IoT devices with API integration  
