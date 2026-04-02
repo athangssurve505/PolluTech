@@ -25,42 +25,38 @@ export default function Info() {
           <span className="font-bold text-emerald-900">PolluTech</span> is a
           blockchain-based web application designed to bring transparency,
           accountability, and trust to industrial pollution monitoring. The
-          platform enables factories to securely record their emission data
-          while ensuring that all historical pollution records remain
-          tamper-proof and verifiable. By storing verified environmental data on
-          a decentralized ledger, PolluTech prevents data manipulation and
-          creates a reliable source of truth for regulators, industries, and
-          stakeholders.
+          platform enables factories to securely record air, water, and soil
+          pollution measurements while ensuring that all historical pollution
+          records remain tamper-proof and verifiable.
         </p>
 
         <p className="text-lg text-center leading-relaxed text-gray-800 mb-6">
-          Beyond monitoring, PolluTech also tracks carbon credits, rewarding
-          factories that actively reduce their environmental impact. This
-          encourages cleaner industrial practices while maintaining a
-          transparent audit trail of compliance and sustainability efforts.
+          Beyond monitoring, PolluTech tracks carbon credits, water quality
+          indices, and soil contamination levels—rewarding factories that actively
+          reduce environmental impact and stay compliant over time.
         </p>
 
-        {/* New Features Row */}
+        {/* Pollution Domains Row */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6">
 
           <div className="bg-gray-50 p-5 rounded-xl text-center shadow-sm">
-            <h3 className="font-bold text-emerald-800 text-xl">Real-Time Data</h3>
+            <h3 className="font-bold text-emerald-800 text-xl">Air Pollution</h3>
             <p className="text-gray-700 mt-2">
-              IoT sensors continuously stream pollution data to the platform.
+              Track PM2.5, NOx, SOx, and VOC levels with live sensor updates.
             </p>
           </div>
 
           <div className="bg-gray-50 p-5 rounded-xl text-center shadow-sm">
-            <h3 className="font-bold text-emerald-800 text-xl">Blockchain Trust</h3>
+            <h3 className="font-bold text-emerald-800 text-xl">Water Pollution</h3>
             <p className="text-gray-700 mt-2">
-              Every reading is stored immutably for verification and audits.
+              Monitor effluents and chemical contaminants in rivers and lakes.
             </p>
           </div>
 
           <div className="bg-gray-50 p-5 rounded-xl text-center shadow-sm">
-            <h3 className="font-bold text-emerald-800 text-xl">AI Insights</h3>
+            <h3 className="font-bold text-emerald-800 text-xl">Soil Pollution</h3>
             <p className="text-gray-700 mt-2">
-              Predictive models analyze trends and forecast risks.
+              Detect heavy metals, pesticides, and nutrient imbalances in soil.
             </p>
           </div>
 

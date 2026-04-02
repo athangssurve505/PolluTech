@@ -61,8 +61,8 @@ export default function Hero() {
           "
           >
             A blockchain-powered system that records, verifies, and tracks
-            industrial pollution data with complete transparency and
-            tamper-proof security.
+            industrial air, water, and soil pollution data with complete
+            transparency and tamper-proof security.
           </p>
 
           <div className="mt-4">
@@ -76,7 +76,7 @@ export default function Hero() {
         <FeatureCard
           img={real_time}
           title="Real-Time Pollution Data"
-          description="Monitor and track air and water pollution emissions from industrial sources in real time."
+          description="Monitor and track air, water, and soil pollution emissions from industrial sources in real time."
         />
 
         <FeatureCard
