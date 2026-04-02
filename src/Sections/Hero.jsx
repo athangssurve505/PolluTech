@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import Button from "../Components/ui/Button";
 import monitor from "../assets/images/Auth.png";
 import FeatureCard from "../Layouts/FeatureCard";
@@ -7,6 +8,7 @@ import blockchain from "../assets/images/blockchain.png";
 import search from "../assets/images/search.png";
 
 export default function Hero() {
+  const navigate = useNavigate();
   return (
     <div className="w-full min-h-screen bg-[#f4f2ee] px-6 md:px-12 pb-16">
       {/* HERO TOP SECTION */}
@@ -66,7 +68,10 @@ export default function Hero() {
           </p>
 
           <div className="mt-4">
-            <Button text="View Dashboard" />
+            <Button
+              text="View Dashboard"
+              onClick={() => navigate('/dashboard')}
+            />
           </div>
         </div>
       </div>

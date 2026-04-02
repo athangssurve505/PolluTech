@@ -1,6 +1,6 @@
 
 
-export default function Button({ text, type = "button", variant = "primary" }) {
+export default function Button({ text, type = "button", variant = "primary", onClick }) {
   const baseStyles =
     "px-5 cursor-pointer py-2.5 rounded-lg font-medium transition-all duration-200 focus:outline-none";
 
@@ -14,7 +14,11 @@ export default function Button({ text, type = "button", variant = "primary" }) {
   };
 
   return (
-    <button type={type} className={`${baseStyles} ${variants[variant]}`}>
+    <button
+      type={type}
+      className={`${baseStyles} ${variants[variant]}`}
+      onClick={onClick}
+    >
       {text}
     </button>
   );
