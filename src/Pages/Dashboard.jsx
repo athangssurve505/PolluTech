@@ -1,13 +1,14 @@
 import React from 'react';
+import Footer from '../Components/ui/Footer';
 
 const PolluTechDashboard = () => {
   return (
-    <div className="w-full min-h-screen bg-[#f4f2ee] px-6 md:px-12 py-8">
-      <div className="max-w-7xl mx-auto">
-        <div className="flex flex-col md:flex-row gap-6 md:gap-10">
+    <div className="w-full min-h-screen bg-[#f4f2ee] px-4 md:px-6 py-8">
+      <div className="w-full">
+        <div className="flex flex-col md:flex-row gap-4 md:gap-8">
 
           {/* Sidebar - Factory Selection Section */}
-          <aside className="w-full md:w-64 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
+          <aside className="w-full md:w-80 lg:w-86 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-bold mb-6 text-emerald-900">PolluTech Factories</h2>
             <ul className="space-y-3">
               {['Factory Alpha', 'Factory Beta', 'Plant Gamma'].map((factory) => (
@@ -73,6 +74,8 @@ const PolluTechDashboard = () => {
       </main>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
