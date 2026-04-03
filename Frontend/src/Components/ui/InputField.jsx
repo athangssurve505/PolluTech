@@ -15,7 +15,7 @@ const InputField = ({
   const inputType = isPassword && showPassword ? "text" : type;
 
   return (
-    <div className="mb-4">
+    <div className="mb-2">
       <label className="block mb-1.5 font-medium text-gray-700">
         {label}
       </label>

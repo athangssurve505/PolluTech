@@ -1,11 +1,39 @@
+import toast from "react-hot-toast";
+
 import { useForm } from "react-hook-form";
 import InputField from "../ui/InputField";
+import { signupValidation } from "../../validations/authValidation";
+import { signupUser } from "../../services/authService";
+import {  useNavigate } from "react-router-dom";
 
 const Signup = ({ show }) => {
-  const { register, handleSubmit } = useForm();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    watch
+  } = useForm();
 
-  const onSubmit = (data) => {
-    console.log("Signup Data:", data);
+  const password = watch("password");
+  const navigate = useNavigate();
+
+   const onSubmit = async (data) => {
+    try {
+      const res = await signupUser(data);
+
+      if (res.status === 201 || res.status === 200) {
+
+      toast.success("Account created successfully!",{
+        duration:2000
+      });
+
+      navigate("/dashboard",{replace:true});
+}
+    } catch (err) {
+      toast.error(err.response?.data || err.message,{
+        duration:2000
+      });
+    }
   };
 
   return (
@@ -32,32 +60,57 @@ const Signup = ({ show }) => {
             type="text"
             placeholder="Enter your full name"
             iconName="RiUserLine"
-            {...register("name", { required: true })}
+            {...register("name",signupValidation.name)}
           />
+          {errors.name && (
+        <p className="text-red-500 text-sm font-medium">
+         {`*${errors.name.message}`}
+          </p>
+)}
 
           <InputField
             label="Email"
             type="email"
             placeholder="Enter your email"
             iconName="RiMailFill"
-            {...register("email", { required: true })}
+            {...register("email",signupValidation.email )}
           />
+                {errors.email && (
+         <p className="text-red-500 text-sm font-medium">
+    {`* ${errors.email.message}`}
+  </p>
+  )}
 
           <InputField
             label="Password"
             type="password"
             placeholder="Create a password"
             iconName="RiLockFill"
-            {...register("password", { required: true })}
+            {...register("password",signupValidation.password)}
           />
+          {errors.password && (
+         <p className="text-red-500 text-sm font-medium">
+    {`* ${errors.password.message}`}
+  </p>
+  )}
+
 
           <InputField
             label="Confirm Password"
             type="password"
             placeholder="Re-enter your password"
             iconName="RiLockFill"
-            {...register("confirmPassword", { required: true })}
+             {...register("confirmPassword", {
+                required: "Please confirm your password",
+                validate: (value) =>
+                value === password || "Passwords do not match",
+              })}
           />
+           {errors.confirmPassword && (
+            <p className="text-red-500 font-medium text-sm">
+          {`* ${errors.confirmPassword.message}`}
+          </p>
+            )}
 
           <button
             type="submit"
