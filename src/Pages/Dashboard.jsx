@@ -1,40 +1,51 @@
 import React, { useState, useEffect } from 'react';
 import Footer from '../Components/ui/Footer';
+import ChartCard from '../Components/dashboard/ChartCard';
+import factoryData from '../data/factoryData.json';
 
 const PolluTechDashboard = () => {
-  const [pollutionData, setPollutionData] = useState(null);
+  const factories = Object.keys(factoryData);
+  const [selectedFactory, setSelectedFactory] = useState(factories[0]);
+  const [factoryHistory] = useState(factoryData);
+  const [pollutionData, setPollutionData] = useState(factoryData[factories[0]][0]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [lastUpdate, setLastUpdate] = useState(null);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchFactoryData = async () => {
+      setLoading(true);
+      setError(null);
+
       try {
-        // Try the new GET endpoint first (for retrieving data)
-        // If your backend only has POST, it should have a separate GET endpoint
-        const response = await fetch('http://localhost:5000/api/save-prediction');
-        if (!response.ok) {
-          throw new Error(`HTTP Error: ${response.status}. Backend needs to support GET on /api/get-prediction or /api/latest-prediction`);
+        // Fallback to local factory data; API can be used in addition if available
+        const history = factoryHistory[selectedFactory] || [];
+        if (!history.length) {
+          throw new Error(`No data available for ${selectedFactory}`);
         }
-        const data = await response.json();
-        setPollutionData(data);
+
+        const latest = history[history.length - 1];
+        setPollutionData({
+          ...latest,
+          predicted_aqi: latest.predicted_aqi ?? computePredictedAQI(latest.aqi),
+          ai_suggestions: latest.ai_suggestions ?? getAISuggestions(latest.category)
+        });
         setLastUpdate(new Date().toLocaleTimeString());
-        setError(null);
       } catch (err) {
         setError(err.message);
-        console.error('Error fetching pollution data:', err);
+        console.error('Error loading factory data:', err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    fetchFactoryData();
 
-    // Poll the API every 10 seconds for real-time updates
-    const interval = setInterval(fetchData, 10000);
+    // Poll the local data set every 10 seconds (simulate updates)
+    const interval = setInterval(fetchFactoryData, 10000);
 
     return () => clearInterval(interval);
-  }, []);
+  }, [factoryHistory, selectedFactory]);
 
   const getCategoryColor = (category) => {
     const colors = {
@@ -48,6 +59,23 @@ const PolluTechDashboard = () => {
     return colors[category] || 'bg-gray-100 text-gray-700';
   };
 
+  const computePredictedAQI = (aqi) => {
+    if (typeof aqi !== 'number' || Number.isNaN(aqi)) return 0;
+    return Math.min(500, Math.max(0, Math.round(aqi * 1.08)));
+  };
+
+  const getAISuggestions = (category) => {
+    const suggestions = {
+      Good: 'Air quality is good. Keep monitoring and maintain normal operations.',
+      Satisfactory: 'Air quality is satisfactory. Consider minor optimizations in process emissions controls.',
+      Moderate: 'Moderate level. Review ventilation and add particulate filters to reduce PM values.',
+      Poor: 'Poor level. Increase emission controls and enforce stricter operational limits.',
+      'Very Poor': 'Very poor quality. Activate emergency emission reduction policies and real-time monitoring.',
+      Severe: 'Severe pollution. Halt non-essential production and engage emergency emission procedures.'
+    };
+    return suggestions[category] || 'Monitor closely and follow environmental guidance.';
+  };
+
   return (
     <div className="w-full min-h-screen bg-[#f4f2ee] px-4 md:px-6 py-8">
       <div className="w-full">
@@ -57,11 +85,18 @@ const PolluTechDashboard = () => {
           <aside className="w-full md:w-80 lg:w-86 bg-white border border-gray-200 rounded-2xl p-6 shadow-sm">
             <h2 className="text-xl font-bold mb-6 text-emerald-900">PolluTech Factories</h2>
             <ul className="space-y-3">
-              {['Factory Alpha', 'Factory Beta', 'Plant Gamma'].map((factory) => (
-                <li key={factory} className="hover:text-emerald-700 cursor-pointer p-2 rounded-lg hover:bg-emerald-50 transition">
-                  {factory}
-                </li>
-              ))}
+              {factories.map((factory) => {
+                const selected = factory === selectedFactory;
+                return (
+                  <li
+                    key={factory}
+                    className={`cursor-pointer p-2 rounded-lg transition ${selected ? 'bg-emerald-100 text-emerald-900 font-semibold' : 'text-gray-700 hover:text-emerald-700 hover:bg-emerald-50'}`}
+                    onClick={() => setSelectedFactory(factory)}
+                  >
+                    {factory}
+                  </li>
+                );
+              })}
             </ul>
           </aside>
 
@@ -103,6 +138,14 @@ const PolluTechDashboard = () => {
                       <p className="text-xs mt-2 opacity-75">{new Date(pollutionData.timestamp).toLocaleTimeString()}</p>
                     </div>
                   </div>
+                </div>
+
+                {/* Pollutant Graph */}
+                <div className="mb-6">
+                  <ChartCard
+                    title={`Factory Trend: ${selectedFactory}`}
+                    history={factoryHistory[selectedFactory] || []}
+                  />
                 </div>
 
                 {/* Pollutant Cards */}
